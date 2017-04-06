@@ -1,5 +1,6 @@
 <?php
-   
+
+if (isset($_POST['submit']) && !empty($_POST['submit']))
 
     session_cache_limiter( 'nocache' );
     header( 'Expires: ' . gmdate( 'r', 0 ) );
@@ -10,10 +11,10 @@
 
     $email_template = '/email-templates/simple.html';
 
+    $name       = strip_tags($_POST['name']);    
+    $email       = strip_tags($_POST['email']);   
     $subject    = strip_tags($_POST['subject']);
-    $email       = strip_tags($_POST['email']);
-    $phone      = strip_tags($_POST['phone']);
-    $name       = strip_tags($_POST['name']);
+   
     $message    = nl2br( htmlspecialchars($_POST['message'], ENT_QUOTES) );
     $result     = array();
 
@@ -48,11 +49,11 @@
 
 
     $templateTags =  array(
-        '{{subject}}' => $subject,
+       '{{name}}'=>$name, 
         '{{email}}'=>$email,
+       '{{subject}}' => $subject,
         '{{message}}'=>$message,
-        '{{name}}'=>$name,
-        '{{phone}}'=>$phone
+        
         );
 
 
